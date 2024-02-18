@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% from "_render_field.html" import render_field %}
 {% block content %}
 
 <h1>Store - {{ store.title }}</h1>
@@ -30,27 +31,9 @@
     <fieldset>
         <legend>Enter store information:</legend>
 
-        {{ form.title.label }} {{ form.title }}
+        {{ render_field(form.title) }}
 
-        {% if form.title.errors %}
-            <!-- show form errors -->
-            <ul>
-                {% for error in form.title.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        {{ form.address.label }} {{ form.address }}
-
-        {% if form.address.errors %}
-            <!-- show form errors -->
-            <ul>
-                {% for error in form.address.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {{ render_field(form.address) }}
 
         {{ form.submit }}
     </fieldset>

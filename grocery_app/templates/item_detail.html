@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% from "_render_field.html" import render_field %}
 {% block content %}
 
 <h1>Item - {{ item.name }}</h1>
@@ -25,60 +26,15 @@
     <fieldset>
         <legend>Enter item information:</legend>
 
-        {{ form.name.label }} {{ form.name }}
+        {{ render_field(form.name) }}
 
-         {% if form.name.errors %}
-            <!-- show form errors -->
-            <ul>
-                {% for error in form.name.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {{ render_field(form.price) }}
 
-        {{ form.price.label }} {{ form.price }}
+        {{ render_field(form.category) }}
 
-         {% if form.price.errors %}
-            <!-- show form errors -->
-            <ul>
-                {% for error in form.price.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {{ render_field(form.photo_url) }}
 
-        {{ form.category.label }} {{ form.category }}
-
-         {% if form.category.errors %}
-            <!-- show form errors -->
-            <ul>
-                {% for error in form.category.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        {{ form.photo_url.label }} {{ form.photo_url }}
-
-         {% if form.photo_url.errors %}
-            <!-- show form errors -->
-            <ul>
-                {% for error in form.photo_url.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        {{ form.store.label }} {{ form.store }}
-
-         {% if form.store.errors %}
-            <!-- show form errors -->
-            <ul>
-                {% for error in form.store.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        {{ render_field(form.store) }}
 
         {{ form.submit }}
     </fieldset>
