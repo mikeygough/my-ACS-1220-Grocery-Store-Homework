@@ -12,13 +12,15 @@ main = Blueprint("main", __name__)
 #           Routes                       #
 ##########################################
 
-@main.route('/')
+
+@main.route("/")
 def homepage():
     all_stores = GroceryStore.query.all()
     print(all_stores)
-    return render_template('home.html', all_stores=all_stores)
+    return render_template("home.html", all_stores=all_stores)
 
-@main.route('/new_store', methods=['GET', 'POST'])
+
+@main.route("/new_store", methods=["GET", "POST"])
 def new_store():
     # TODO: Create a GroceryStoreForm
 
@@ -28,9 +30,10 @@ def new_store():
     # - redirect the user to the store detail page.
 
     # TODO: Send the form to the template and use it to render the form fields
-    return render_template('new_store.html')
+    return render_template("new_store.html")
 
-@main.route('/new_item', methods=['GET', 'POST'])
+
+@main.route("/new_item", methods=["GET", "POST"])
 def new_item():
     # TODO: Create a GroceryItemForm
 
@@ -40,9 +43,10 @@ def new_item():
     # - redirect the user to the item detail page.
 
     # TODO: Send the form to the template and use it to render the form fields
-    return render_template('new_item.html')
+    return render_template("new_item.html")
 
-@main.route('/store/<store_id>', methods=['GET', 'POST'])
+
+@main.route("/store/<store_id>", methods=["GET", "POST"])
 def store_detail(store_id):
     store = GroceryStore.query.get(store_id)
     # TODO: Create a GroceryStoreForm and pass in `obj=store`
@@ -54,9 +58,10 @@ def store_detail(store_id):
 
     # TODO: Send the form to the template and use it to render the form fields
     store = GroceryStore.query.get(store_id)
-    return render_template('store_detail.html', store=store)
+    return render_template("store_detail.html", store=store)
 
-@main.route('/item/<item_id>', methods=['GET', 'POST'])
+
+@main.route("/item/<item_id>", methods=["GET", "POST"])
 def item_detail(item_id):
     item = GroceryItem.query.get(item_id)
     # TODO: Create a GroceryItemForm and pass in `obj=item`
@@ -68,5 +73,4 @@ def item_detail(item_id):
 
     # TODO: Send the form to the template and use it to render the form fields
     item = GroceryItem.query.get(item_id)
-    return render_template('item_detail.html', item=item)
-
+    return render_template("item_detail.html", item=item)
