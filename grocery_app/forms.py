@@ -1,7 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, SubmitField, FloatField
+from wtforms import (
+    StringField,
+    DateField,
+    SelectField,
+    SubmitField,
+    FloatField,
+)
+from wtforms.fields.html5 import URLField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-from wtforms.validators import DataRequired, Length, URL, NumberRange
+from wtforms.validators import DataRequired, Length, NumberRange
 from grocery_app.models import GroceryStore, ItemCategory
 
 
@@ -65,14 +72,8 @@ class GroceryItemForm(FlaskForm):
         "Grocery Store Item Category", choices=ItemCategory.choices()
     )
 
-    photo_url = StringField(
+    photo_url = URLField(
         "Grocery Store Item Photo URL",
-        validators=[
-            URL(
-                require_tld=False,
-                message="Your grocery store item photo URL must be a valid URL",
-            )
-        ],
     )
 
     store = QuerySelectField(

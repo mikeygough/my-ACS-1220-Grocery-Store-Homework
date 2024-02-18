@@ -3,7 +3,13 @@
 
 <h1>Item - {{ item.name }}</h1>
 
-<p><img src="{{ item.photo_url }}" width="250px" height="250px"></p>
+<p>
+    {% if item.photo_url %}
+        <img src="{{ item.photo_url }}" width="250px" height="250px">
+    {% else %}
+        <img src="https://cdn.vectorstock.com/i/preview-1x/82/99/no-image-available-like-missing-picture-vector-43938299.jpg" alt="Grocery item photo not available" width="200px" height="227.15px">
+    {% endif %}
+</p>
 
 <p><strong>Price:</strong> {{ item.price }}</p>
 
@@ -14,17 +20,67 @@
 
 <h2>Edit Item</h2>
 
-<form>
+<form method="POST" action="{{ url_for('main.item_detail', item_id=item.id) }}">
+    {{ form.csrf_token }}
     <fieldset>
-        <legend>Please enter your information:</legend>
+        <legend>Enter item information:</legend>
 
+        {{ form.name.label }} {{ form.name }}
 
+         {% if form.name.errors %}
+            <!-- show form errors -->
+            <ul>
+                {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-        <!-- TODO: Remove the next paragraph and use the `form` object passed in 
-            from the route to render a form. -->
-        <p><em>Form fields go here!</em></p>
+        {{ form.price.label }} {{ form.price }}
 
-        <input type="submit" value="Submit">
+         {% if form.price.errors %}
+            <!-- show form errors -->
+            <ul>
+                {% for error in form.price.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {{ form.category.label }} {{ form.category }}
+
+         {% if form.category.errors %}
+            <!-- show form errors -->
+            <ul>
+                {% for error in form.category.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {{ form.photo_url.label }} {{ form.photo_url }}
+
+         {% if form.photo_url.errors %}
+            <!-- show form errors -->
+            <ul>
+                {% for error in form.photo_url.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {{ form.store.label }} {{ form.store }}
+
+         {% if form.store.errors %}
+            <!-- show form errors -->
+            <ul>
+                {% for error in form.store.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {{ form.submit }}
     </fieldset>
 </form>
 
