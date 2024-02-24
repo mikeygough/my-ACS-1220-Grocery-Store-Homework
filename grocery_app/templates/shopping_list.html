@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>{{ current_user.username }} - Shopping List</h1>
+
+<h2>Items</h2>
+
+<div class="items">
+  {% for item in shopping_list %}
+  <div class="item-details">
+    <a href="/item/{{ item.id }}">
+      {% if item.photo_url %}
+      <img
+        src="{{ item.photo_url }}"
+        alt="{{ item.name }}"
+        width="200px" height="227.15px"
+      />
+      {% else %}
+      <img
+        src="https://cdn.vectorstock.com/i/preview-1x/82/99/no-image-available-like-missing-picture-vector-43938299.jpg"
+        alt="Grocery item photo not available"
+        width="200px" height="227.15px"
+      />
+      {% endif %}
+      <p><strong>{{ item.name }}</strong></p></a
+    >
+    <p><strong>Price: ${{ item.price }}</strong></p>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

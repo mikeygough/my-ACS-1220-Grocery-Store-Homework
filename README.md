@@ -48,12 +48,18 @@ Happy Trekking Trail Mix
 
 Pantry
 
+https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQFQ16emV3jQNLcr9kCpVUrYcJu7ltrDCIYVpzR5AG6h_5LZ1sTTNNxmvh1I05oJMGL9IgN3HxJLAUwD5KDv39nL7TBvzGB6EiWM-uFU-B-6P7pBCYN9BvAsCuCw_0K7dWi0b6mxQ&usqp=CAc
+
 Trader Joe's
+
+---
 
 Justin's Classic Almond Butter
 
 12.99
 
 Pantry
+
+https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTZVWlDJrgeCNGRliS-O-O8xA8NyjRtwfsglDDeQpeNeRaenyraZsiFO6AcAqkn6FzdQ7IVVH__3joid0FC5FoLQuZc2ZNCTqsdIdIny9QMlYChEDDR92XNY_EVhn5Uz8vWwoNsbDtS2pI&usqp=CAc
 
 Whole Foods

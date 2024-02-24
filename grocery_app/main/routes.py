@@ -114,7 +114,7 @@ def item_detail(item_id):
         return redirect(url_for("main.item_detail", item_id=item.id))
 
     # check if item in shopping list
-    in_cart = current_user in item.shoppers
+    in_cart = item in current_user.shopping_list_items
 
     return render_template("item_detail.html", item=item, form=form, in_cart=in_cart)
 
@@ -122,7 +122,7 @@ def item_detail(item_id):
 @main.route("/add_to_shopping_list/<item_id>", methods=["POST"])
 def add_to_shopping_list(item_id):
     item = GroceryItem.query.get(item_id)
-    if current_user not in item.shoppers:
+    if item not in current_user.shopping_list_items:
         current_user.shopping_list_items.append(item)
         db.session.commit()
         flash("Item added to shopping list successfully.")
@@ -132,8 +132,16 @@ def add_to_shopping_list(item_id):
 @main.route("/remove_from_shopping_list/<item_id>", methods=["POST"])
 def remove_from_shopping_list(item_id):
     item = GroceryItem.query.get(item_id)
-    if current_user in item.shoppers:
+    if item in current_user.shopping_list_items:
         current_user.shopping_list_items.remove(item)
         db.session.commit()
         flash("Item removed from shopping list successfully.")
     return redirect(url_for("main.item_detail", item_id=item.id))
+
+
+@main.route("/shopping_list")
+@login_required
+def shopping_list():
+    # get shopping list
+    shopping_list = current_user.shopping_list_items
+    return render_template("shopping_list.html", shopping_list=shopping_list)
