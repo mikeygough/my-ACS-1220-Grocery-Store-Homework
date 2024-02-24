@@ -48,8 +48,6 @@ def new_store():
 def new_item():
     # new form
     form = GroceryItemForm()
-    print("Session exists up here!", db.session)
-
     # if form was submitted with no errors
     if form.validate_on_submit():
         print("Session from inside validate form submit", db.session)
@@ -60,11 +58,13 @@ def new_item():
             photo_url=form.photo_url.data,
             store=form.store.data,
         )
-        db.session.add(new_item)
+        # added this ⬇️
+        item = db.session.merge(new_item)
+        # added this ⬆️
+        db.session.add(item)
         db.session.commit()
-        print("Im here")
         flash("New item was created successfully.")
-        return redirect(url_for("main.item_detail", item_id=new_item.id))
+        return redirect(url_for("main.item_detail", item_id=item.id))
     return render_template("new_item.html", form=form)
 
 
