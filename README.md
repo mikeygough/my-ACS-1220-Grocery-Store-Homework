@@ -4,7 +4,7 @@ _For instructions on how to complete this assignment, see [here](https://github.
 
 ## Setup
 
-Clone this repository to your computer. 
+Clone this repository to your computer.
 
 **Take a look at the code** - it looks a bit different than what you're used to. Namely, the code is now separated out into several files rather than being written in a single `app.py` file. Since we're now writing model and form code as well as route code, this will help us to maintain some structure and separation.
 
@@ -27,3 +27,33 @@ Then you can run the server:
 ```
 python app.py
 ```
+
+#### Dummy Data
+
+**Stores**
+
+Trader Joe's
+
+1147 S Wabash Ave, Chicago, IL 60605
+
+Whole Foods
+
+1550 N Kingsbury St, Chicago, IL 60642
+
+**Grocery Items**
+
+Happy Trekking Trail Mix
+
+7.99
+
+Pantry
+
+Trader Joe's
+
+Justin's Classic Almond Butter
+
+12.99
+
+Pantry
+
+Whole Foods

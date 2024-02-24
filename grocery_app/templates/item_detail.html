@@ -4,6 +4,18 @@
 
 <h1>Item - {{ item.name }}</h1>
 
+{% if current_user.is_authenticated %}
+    {% if in_cart %}
+        <form action="/remove_from_shopping_list/{{ item.id }}" method="POST">
+            <input type="submit" value="Remove From Cart">
+        </form>
+    {% else %}
+        <form action="/add_to_shopping_list/{{ item.id }}" method="POST">
+            <input type="submit" value="Add to Cart">
+        </form>
+    {% endif %}
+{% endif %}
+
 <p>
     {% if item.photo_url %}
         <img src="{{ item.photo_url }}" width="250px" height="250px">
@@ -20,6 +32,7 @@
 
 
 <h2>Edit Item</h2>
+<h4>Item created by: {{ item.created_by.username }}</h4>
 
 <form method="POST" action="{{ url_for('main.item_detail', item_id=item.id) }}">
     {{ form.csrf_token }}

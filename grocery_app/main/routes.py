@@ -23,6 +23,7 @@ def homepage():
 
 
 @main.route("/new_store", methods=["GET", "POST"])
+@login_required
 def new_store():
     # new form
     form = GroceryStoreForm()
@@ -32,8 +33,11 @@ def new_store():
         new_store = GroceryStore(
             title=form.title.data,
             address=form.address.data,
+            created_by_id=current_user.id,
         )
-
+        # added this ⬇️
+        new_store = db.session.merge(new_store)
+        # added this ⬆️
         db.session.add(new_store)
         db.session.commit()
 
@@ -57,18 +61,20 @@ def new_item():
             category=form.category.data,
             photo_url=form.photo_url.data,
             store=form.store.data,
+            created_by_id=current_user.id,
         )
         # added this ⬇️
-        item = db.session.merge(new_item)
+        new_item = db.session.merge(new_item)
         # added this ⬆️
-        db.session.add(item)
+        db.session.add(new_item)
         db.session.commit()
         flash("New item was created successfully.")
-        return redirect(url_for("main.item_detail", item_id=item.id))
+        return redirect(url_for("main.item_detail", item_id=new_item.id))
     return render_template("new_item.html", form=form)
 
 
 @main.route("/store/<store_id>", methods=["GET", "POST"])
+@login_required
 def store_detail(store_id):
     store = GroceryStore.query.get(store_id)
     form = GroceryStoreForm(obj=store)
@@ -88,6 +94,7 @@ def store_detail(store_id):
 
 
 @main.route("/item/<item_id>", methods=["GET", "POST"])
+@login_required
 def item_detail(item_id):
     item = GroceryItem.query.get(item_id)
     form = GroceryItemForm(obj=item)
@@ -106,4 +113,27 @@ def item_detail(item_id):
         flash("Item updated successfully.")
         return redirect(url_for("main.item_detail", item_id=item.id))
 
-    return render_template("item_detail.html", item=item, form=form)
+    # check if item in shopping list
+    in_cart = current_user in item.shoppers
+
+    return render_template("item_detail.html", item=item, form=form, in_cart=in_cart)
+
+
+@main.route("/add_to_shopping_list/<item_id>", methods=["POST"])
+def add_to_shopping_list(item_id):
+    item = GroceryItem.query.get(item_id)
+    if current_user not in item.shoppers:
+        current_user.shopping_list_items.append(item)
+        db.session.commit()
+        flash("Item added to shopping list successfully.")
+    return redirect(url_for("main.item_detail", item_id=item.id))
+
+
+@main.route("/remove_from_shopping_list/<item_id>", methods=["POST"])
+def remove_from_shopping_list(item_id):
+    item = GroceryItem.query.get(item_id)
+    if current_user in item.shoppers:
+        current_user.shopping_list_items.remove(item)
+        db.session.commit()
+        flash("Item removed from shopping list successfully.")
+    return redirect(url_for("main.item_detail", item_id=item.id))
