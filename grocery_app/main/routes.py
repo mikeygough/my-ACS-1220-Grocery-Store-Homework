@@ -1,11 +1,11 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
 from datetime import date, datetime
-from grocery_app.models import GroceryStore, GroceryItem
+from grocery_app.models import GroceryStore, GroceryItem, User
 from grocery_app.main.forms import GroceryStoreForm, GroceryItemForm
 
 # Import app and db from events_app package so that we can run app
-from grocery_app.extensions import app, db
+from grocery_app.extensions import db
 
 main = Blueprint("main", __name__)
 
@@ -17,6 +17,7 @@ main = Blueprint("main", __name__)
 @main.route("/")
 def homepage():
     all_stores = GroceryStore.query.all()
+    print(current_user)
 
     return render_template("home.html", all_stores=all_stores)
 
@@ -43,12 +44,13 @@ def new_store():
 
 
 @main.route("/new_item", methods=["GET", "POST"])
+@login_required
 def new_item():
     # new form
     form = GroceryItemForm()
-
     # if form was submitted with no errors
     if form.validate_on_submit():
+        print("Session from inside validate form submit", db.session)
         new_item = GroceryItem(
             name=form.name.data,
             price=form.price.data,
@@ -56,7 +58,9 @@ def new_item():
             photo_url=form.photo_url.data,
             store=form.store.data,
         )
+        # added this ⬇️
         item = db.session.merge(new_item)
+        # added this ⬆️
         db.session.add(item)
         db.session.commit()
         flash("New item was created successfully.")

@@ -9,7 +9,7 @@ from wtforms import (
 from wtforms.fields.html5 import URLField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, Length, NumberRange
-from grocery_app.models import GroceryStore, ItemCategory
+from grocery_app.models import GroceryStore, ItemCategory, GroceryItem
 
 
 class GroceryStoreForm(FlaskForm):
