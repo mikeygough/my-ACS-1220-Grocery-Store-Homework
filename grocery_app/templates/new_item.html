@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% from "_render_field.html" import render_field %}
 {% block content %}
 
 <h1>New Item</h1>
@@ -9,15 +8,20 @@
     <fieldset>
         <legend>Enter item information:</legend>
 
-        {{ render_field(form.name) }}
+        {{ form.name.label }}
+        {{ form.name }}
 
-        {{ render_field(form.price) }}
+        {{ form.price.label }}
+        {{ form.price }}
 
-        {{ render_field(form.category) }}
+        {{ form.category.label }}
+        {{ form.category }}
 
-        {{ render_field(form.photo_url) }}
+        {{ form.photo_url.label }}
+        {{ form.photo_url }}
 
-        {{ render_field(form.store) }}
+        {{ form.store.label }}
+        {{ form.store }}
 
         {{ form.submit }}
     </fieldset>
