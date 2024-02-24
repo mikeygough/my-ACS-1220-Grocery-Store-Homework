@@ -56,13 +56,11 @@ def new_item():
             photo_url=form.photo_url.data,
             store=form.store.data,
         )
-
-        db.session.add(new_item)
+        item = db.session.merge(new_item)
+        db.session.add(item)
         db.session.commit()
-
         flash("New item was created successfully.")
-        return redirect(url_for("main.item_detail", item_id=new_item.id))
-
+        return redirect(url_for("main.item_detail", item_id=item.id))
     return render_template("new_item.html", form=form)
 
 
