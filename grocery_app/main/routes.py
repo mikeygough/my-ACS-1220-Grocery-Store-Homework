@@ -35,9 +35,6 @@ def new_store():
             address=form.address.data,
             created_by_id=current_user.id,
         )
-        # added this ⬇️
-        new_store = db.session.merge(new_store)
-        # added this ⬆️
         db.session.add(new_store)
         db.session.commit()
 
@@ -63,9 +60,6 @@ def new_item():
             store=form.store.data,
             created_by_id=current_user.id,
         )
-        # added this ⬇️
-        # new_item = db.session.merge(new_item)
-        # added this ⬆️
         db.session.add(new_item)
         db.session.commit()
         flash("New item was created successfully.")
