@@ -64,7 +64,7 @@ def new_item():
             created_by_id=current_user.id,
         )
         # added this ⬇️
-        new_item = db.session.merge(new_item)
+        # new_item = db.session.merge(new_item)
         # added this ⬆️
         db.session.add(new_item)
         db.session.commit()
